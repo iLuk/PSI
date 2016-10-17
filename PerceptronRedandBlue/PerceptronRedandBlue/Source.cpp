@@ -33,8 +33,8 @@ int main() {
 		(3.6,3,0)
 	};
 
-	double	w1 = ((rand() % 10) - 5) / 10.,
-		w2 = ((rand() % 10) - 5) / 10.,
+	double	w1 = ((rand() % 51)+ 50) / 100.,
+		w2 = ((rand() % 51)+ 50) / 100.,
 		res = 0,
 		n = 0.01, // niewielki współczynnik uczenia
 		b = 0, // ?
@@ -64,6 +64,8 @@ int main() {
 				w1 += n * (Ptable[i].color - Pcolor) * Ptable[i].x;
 				w2 += n * (Ptable[i].color - Pcolor) * Ptable[i].y;
 				b += n * (Ptable[i].color - Pcolor);
+
+				cout << w1 << " " << w2 << endl;
 			}
 		}
 
@@ -88,7 +90,12 @@ int main() {
 
 bool RedOrBlue(double x, double  y, double  w1, double  w2) {// funkcja progowa unipolarna
 
-	double res = x*w1 + y*w2;
+	double res = 0;
+	
+	if(w2 < 0)
+		res = x*w2 + y*w1;
+	else
+		res = x*w1 + y*w2;
 
 	if (res >= 0)
 		return true;
